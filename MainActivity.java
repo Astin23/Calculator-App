@@ -83,5 +83,34 @@ public class MainActivity extends AppCompatActivity {
     private void replace(String str) {
         inputtext.getText().replace(getinput().length() - 1, getinput().length(), str);
     }
+private double operate(String a, String b, String cp) {
+        switch(cp) {
+            case "+":
+                return Double.valueOf(a) + Double.valueOf(b);
+            case "-":
+                return Double.valueOf(a) - Double.valueOf(b);
+            case "x":
+                return Double.valueOf(a) * Double.valueOf(b);
+            case "/":
+                return Double.valueOf(a) / Double.valueOf(b);
+            default: return -1;
+        }
+    }
+    public void equalresult(View v) {
+        String input = getinput();
+        if (!endsWithOperator()) {
+            if (input.contains("x")) {
+                input = input.replaceAll("x", "*");
+            }
+            //2+3-9*8
+            Expression expression = new ExpressionBuilder(input).build();
+            double result = expression.evaluate();
 
+            displaytext.setText(String.valueOf(result));
+        }
+        else {
+            displaytext.setText("");
+        }
+        System.out.println(result);
+    }
 }
